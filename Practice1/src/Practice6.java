@@ -1,15 +1,14 @@
-class Test {
-
-
-    int counter;
-
-    public Test(int counter) {
-        this.counter = counter;
-        System.out.println(this.counter);
-    }
-}
 public class Practice6 {
     public static void main(String[] args) {
-Test test = new Test(100);
+
+        int age = 89;
+
+        String result = age > 18 ? "eligible" : "not eligible";
+        System.out.println(result);
+
+        int number = 75;
+        String output = (number % 2 == 0) ? "even" : "odd";
+        System.out.println(output);
+
     }
 }
