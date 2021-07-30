@@ -10,7 +10,7 @@ public class HashMapPt2 {
         Cars.put(3, "Black");
         Cars.put(4, "White");
         Cars.put(5, "Blue");
-        System.out.println("Size of the hash map: "+Cars.size());
+        System.out.println("Hash Map size "+Cars.size());
 
     }
 }
