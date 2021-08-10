@@ -6,16 +6,17 @@ public class Employee {
     private String lastname;
     private String username;
     private String password;
-
+    private String email;
     public Employee(){
         this.getId();
         this.getFirstname();
         this.getLastname();
         this.getUsername();
         this.getPassword();
+        this.getEmail();
     }
 
-    public Employee(int id, String firstname, String lastname, String password) {
+    public Employee(int id, String firstname, String lastname, String email,String password) {
     }
 
 
@@ -57,5 +58,13 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

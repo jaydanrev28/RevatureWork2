@@ -6,16 +6,20 @@ public class Bank {
     private String password;
     private int pin;
 private int accountNumber;
+private int checkingBalance;
+private int savingBalance;
     public Bank(){
 
     }
 
-    public Bank(int pin, String firstName, String lastName, String password, int accountNumber) {
+    public Bank(int pin, String firstName, String lastName, String password, int accountNumber,int checkingBalance,int savingBalance) {
         this.pin = pin;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password =password;
-        this.getAccountNumber();
+        this.accountNumber= accountNumber;
+        this.checkingBalance = checkingBalance;
+        this.savingBalance = savingBalance;
 
     }
 
@@ -57,5 +61,21 @@ private int accountNumber;
 
     public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public int getCheckingBalance() {
+        return checkingBalance;
+    }
+
+    public void setCheckingBalance(int checkingBalance) {
+        this.checkingBalance = checkingBalance;
+    }
+
+    public int getSavingBalance() {
+        return savingBalance;
+    }
+
+    public void setSavingBalance(int savingBalance) {
+        this.savingBalance = savingBalance;
     }
 }

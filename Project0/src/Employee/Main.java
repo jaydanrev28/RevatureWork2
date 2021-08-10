@@ -8,14 +8,87 @@ import User.User;
 import User.UserDAO;
 import User.UserDAOFactory;
 import User.UserDAOImpl;
-
+import User.Menu;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Menu menus = new Menu();
+        Employee employee = new Employee();
+        int welcomeOtion = 0;
+        Scanner scanner = new Scanner(System.in);
 
+        while (welcomeOtion != 4) {
+            int loggedInOption = 0;
+            menus.mainMenu();
+            welcomeOtion = scanner.nextInt();
+            switch (welcomeOtion) {
+                case 1:
+                    menus.userAccountMenu();
+                    break;
+                case 2:
+                    if (menus.userLogin()) {
+                        while (loggedInOption != 3) {
+                            scanner = new Scanner(System.in);
+                            menus.UserloggedInMenu();
+                            loggedInOption  = scanner.nextInt();
+                            switch (loggedInOption) {
+                                case 1:
+                                    menus.UserApplication();
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    System.out.println("\nLogging out...");
+                                    break;
+                                default:
+                                    System.out.println("Invalid entry please try again");
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    if (menus.employeeLogin()) {
+                        while (loggedInOption != 6) {
+                            scanner = new Scanner(System.in);
+                            menus.empLoginMenu();
+                            loggedInOption  = scanner.nextInt();
+                            switch (loggedInOption) {
+                                case 1:
+                                    menus.accountApplicationsMenu();
+                                    break;
+                                case 2:
+                                    menus.allCustomersMenu();
+                                    break;
+                                case 3:
+                                    menus.customerAccountMenu();
+                                    break;
+                                case 4:
+                                    menus.addEmployeeMenu();
+                                    break;
+                                case 5:
+                                    break;
+                                case 6:
+                                    System.out.println("\nLogging out...");
+                                    break;
+                                default:
+                                    System.out.println("Invalid entry please try again");
+                            }
+                        }
+                    }
+                    break;
+                case 4:
+                    System.out.println("\nThank you! Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid entry.");
+            }
+        }
+
+/*
 
         Scanner scan = new Scanner(System.in);
         //
@@ -190,6 +263,7 @@ public class Main {
             }
             System.out.println();
         }
+*/
 
     }
 }

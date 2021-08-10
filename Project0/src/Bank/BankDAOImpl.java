@@ -2,6 +2,7 @@ package Bank;
 import Employee.ConnectionFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankDAOImpl implements BankDAO {
@@ -109,12 +110,54 @@ public class BankDAOImpl implements BankDAO {
             int accountNumber = resultSet.getInt(2);
 
 
-            System.out.println("Pin = " + pin +", Account Number"+ accountNumber);
+            System.out.println("Pin = " + pin + ", Account Number" + accountNumber);
+
+        }
+    }
+        @Override
+        public void addAccountRelationship(int pin, int accountId) throws SQLException {
+            String sql = "Insert into bank (CustomerId, AccountId) " +
+                    "values (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, pin);
+            preparedStatement.setInt(2, accountId);
+            int count = preparedStatement.executeUpdate();
+            if (count > 0) {
+            }
+            else
+                System.out.println("\nOops! Something went wrong.");
 
         }
 
+        @Override
+        public List<Bank> allCustomersAccounts(int customerId) throws SQLException {
+            List<Bank> customerAccounts = new ArrayList<>();
+            String sql = " select * from Bank";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, customerId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Bank accounts = new Bank(resultSet.getInt(1), resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getInt(5));
+                customerAccounts.add(accounts);
+            }
+            return customerAccounts;
+        }
 
-    }
+        @Override
+        public void accountHistory(int id) throws SQLException {
+            String sql = "select * from accounthistory";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String amount = resultSet.getString(2);
+                Date date = resultSet.getDate(3);
+                System.out.println("\nTransaction: "+amount+" | Date: "+date);
+            }
+            else
+                System.out.println("\nThere is no transaction history");
+        }
+
+
 }
 
 

@@ -92,8 +92,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             String firstname = resultSet2.getString(2);
             String lastname = resultSet2.getString(3);
             String password = resultSet2.getString(4);
-            employee = new Employee(id,firstname,lastname, password);
+            String email = resultSet2.getString(5);
+            employee = new Employee(id,firstname,lastname, password, email);
             return employee;
         }
-
+    @Override
+    public boolean verifyLogin(String email, String password) throws SQLException {
+        String sql = "Select * from employees where email = ? AND password = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, email);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next())
+            return true;
+        else
+            return false;
+    }
 }
