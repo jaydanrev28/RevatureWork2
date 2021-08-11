@@ -9,6 +9,7 @@ public class User {
     private User currentUser;
 
 
+
     public User(int user_id, String user_firstname,String user_lastname,String user_username, String user_password) {
         this.user_firstname = user_firstname;
         this.user_lastname = user_lastname;
@@ -36,7 +37,7 @@ public class User {
         return user_firstname;
     }
 
-    public static void setUser_firstname(String user_firstname) {
+    public  void setUser_firstname(String user_firstname) {
         this.user_firstname = user_firstname;
     }
 
@@ -44,7 +45,7 @@ public class User {
         return user_lastname;
     }
 
-    public static void setUser_lastname(String user_lastname) {
+    public  void setUser_lastname(String user_lastname) {
         this.user_lastname = user_lastname;
     }
 
@@ -52,7 +53,7 @@ public class User {
         return user_username;
     }
 
-    public static void setUser_username(String user_username) {
+    public  void setUser_username(String user_username) {
         this.user_username = user_username;
     }
 
@@ -60,11 +61,11 @@ public class User {
         return user_password;
     }
 
-    public static void setUser_password(String user_password) {
+    public  void setUser_password(String user_password) {
         this.user_password = user_password;
     }
 
-    public static User getCurrentUser() {
+    public  User getCurrentUser() {
         return currentUser;
     }
 

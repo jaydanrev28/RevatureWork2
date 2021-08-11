@@ -1,5 +1,5 @@
 package Applications;
-
+import java.sql.*;
 import Employee.ConnectionFactory;
 import java.beans.Statement;
 import java.sql.Connection;
@@ -40,8 +40,9 @@ public class ApplicationsDAOImpl implements ApplicationDAO {
     @Override
     public List<Applications> getApplication() throws SQLException {
         List<Applications> applications = new ArrayList<>();
-        Statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("Select * from bank");
+        String sql = "Select * from bank";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             Applications application = new Applications(resultSet.getInt(1), resultSet.getString(2),
                     resultSet.getString(3), resultSet.getDouble(4), resultSet.getString(5), resultSet.getInt(6),resultSet.getInt(7));

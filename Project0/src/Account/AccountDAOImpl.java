@@ -17,7 +17,7 @@ public class AccountDAOImpl implements AccountDAO{
     }
 
     @Override
-    public void addBank(Bank account) throws SQLException {
+    public void addAccount(Account account) throws SQLException {
         String sql = "Insert into bank (account_number, savings, checkings) " +
                 "values (?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);

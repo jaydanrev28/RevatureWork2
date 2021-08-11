@@ -13,7 +13,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
-
+//Refrenced from Manual Navarro
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Menu menus = new Menu();
@@ -33,7 +33,7 @@ public class Main {
                     if (menus.userLogin()) {
                         while (loggedInOption != 3) {
                             scanner = new Scanner(System.in);
-                            menus.UserloggedInMenu();
+                            menus.UserLoggedInMenu();
                             loggedInOption  = scanner.nextInt();
                             switch (loggedInOption) {
                                 case 1:
@@ -70,6 +70,7 @@ public class Main {
                                     menus.addEmployeeMenu();
                                     break;
                                 case 5:
+                                    ;
                                     break;
                                 case 6:
                                     System.out.println("\nLogging out...");

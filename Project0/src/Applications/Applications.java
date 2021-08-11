@@ -21,6 +21,10 @@ public class Applications {
         this.id = id;
     }
 
+    public Applications() {
+
+    }
+
     public int getAccountNumber() {
         return accountNumber;
     }

@@ -10,6 +10,6 @@ public interface UserDAO {
    // User currentUser(User acc) throws SQLException;
 
     Object currentUser(String user_username, String user_password)throws SQLException;
-
+void getCustomers() throws SQLException;
     boolean loginUser(String user_username, String user_password)throws SQLException;
 }

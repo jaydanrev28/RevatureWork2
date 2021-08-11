@@ -62,22 +62,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             System.out.println("Oops! something went wrong");
     }
 
-   @Override
-    public void getEmployees(Employee employee) throws SQLException {
-       String sql = "select * from customer";
-       statement = connection.createStatement();
-       ResultSet resultSet = statement.executeQuery(sql);
 
-       while (resultSet.next()) {
-           int id = resultSet.getInt(1);
-           String firstname = resultSet.getString(2);
-           String lastname = resultSet.getString(3);
 
-           System.out.println("Id = " + id + ", First Name = " + firstname + ", Last Name: " + lastname);
 
-       }
-
-   }
 
 
         @Override
@@ -97,8 +84,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             return employee;
         }
     @Override
-    public boolean verifyLogin(String email, String password) throws SQLException {
-        String sql = "Select * from employees where email = ? AND password = ?";
+    public boolean verifyLogin(String email , String password) throws SQLException {
+        String sql = "Select * from employee where email = ? AND password = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, email);
         preparedStatement.setString(2, password);

@@ -36,9 +36,9 @@ public class Menu {
         System.out.println("* Welcome to Jaydan's Banking App !!!*");
         System.out.println("*************************************");
         System.out.println("Please select an option!");
-        System.out.println("\n1 - Employee Login");
+        System.out.println("\n1 - Create Customer Account");
         System.out.println("2 - Customer Login");
-        System.out.println("3 - Create Customer Account");
+        System.out.println("3 - Employee Login");
         System.out.println("4 - Exit");
     }
 
@@ -46,13 +46,13 @@ public class Menu {
         Scanner scan = new Scanner(System.in);
         System.out.println("Create your account!!!!\n");
         System.out.println("Enter your first name");
-        User.setUser_firstname(scan.next());
+        String user_firstname =(scan.next());
         System.out.println("Enter your last name");
-        User.setUser_lastname(scan.next());
+        String user_lastname =(scan.next());
         System.out.println("Enter a username");
-        User.setUser_username(scan.next());
+        String user_username=(scan.next());
         System.out.println("Enter a password");
-        User.setUser_password(scan.next());
+        String user_password=(scan.next());
         udao.registerUser(acc);
     }
     public boolean userLogin() throws SQLException {
@@ -78,7 +78,7 @@ public class Menu {
             return false;
         }
         else
-            new User(udao.currentUser(user_username,user_password));
+           /* new User(udao.currentUser(user_username,user_password));*/
         return true;
     }
     public boolean employeeLogin() throws SQLException {
@@ -106,7 +106,8 @@ public class Menu {
         else
             return true;
     }
-    public void UserLoggedInMenu() {
+    public void UserLoggedInMenu()throws SQLException {
+
         System.out.println("\n**********************");
         System.out.println("* Logged in! *");
         System.out.println("**********************");
@@ -159,7 +160,8 @@ public class Menu {
         }
     }
     private void applicationSet(int option) throws SQLException {
-        User user1 = User.getCurrentUser();
+        Scanner scan = new Scanner(System.in);
+        String currentUser = scan.next();
         switch (option) {
             case 1:
                 application.setId(application.getId());
@@ -196,14 +198,14 @@ public class Menu {
         System.out.println("Please select an option!");
         System.out.println("\n1 - View Account Applications");
         System.out.println("2 - View All Customers");
-        System.out.println("3 - View Customer's Accounts By Id");
-        System.out.println("4 - Add a New Employee");
+        System.out.println("3 - View Customer's Accounts By Pin");
+        System.out.println("4 - Add a New Customer");
         System.out.println("5 - View All Logs");
         System.out.println("6 - Exit");
     }
 
     public void accountApplicationsMenu() throws SQLException {
-        Applications applications1 = new Applications(application.getAccountNumber());
+
         System.out.println("\n************************");
         System.out.println("* Pending Applications *");
         System.out.println("************************");
@@ -216,11 +218,11 @@ public class Menu {
                 //System.out.println(application);
                 System.out.println("\nApplicationId: " + application.getId() + "\nCustomerId: " + application.getId() +
                         "\nCustomer Name: " + application.getFirstname() + " " + application.getLastname() +
-                        "\nChecking Balance Request: "+applications1.getCheckingBalance()+"\nSavings Balance Request: "+applications1.getSavingBalance());
+                        "\nChecking Balance Request: "+application.getCheckingBalance()+"\nSavings Balance Request: "+application.getSavingBalance());
             }
             Scanner scanner = new Scanner(System.in);
             int id = scanner.nextInt();
-            applications1 = adao.getApplicationById(id);
+            Applications applications1 = adao.getApplicationById(id);
             System.out.println("\n**************************************************************");
             System.out.println("\nApplicationId: "+applications1.getId()+"\nCustomerId: "+applications1.getId()+
                     "\nCustomer Name: "+applications1.getFirstname()+" "+applications1.getLastname()+
@@ -242,7 +244,7 @@ public class Menu {
                     account.getAccountNumber();
                     account.getSavingBalance();
                     account.getCheckingBalance();
-                    aadao.addBank(account);
+                    aadao.addAccount(account);
                     System.out.println("\nApplication Approved!");
                     bdao.addAccountRelationship(applications1.getId(), aadao.getNewAccountId());
                     adao.deleteApplication(applications1.getId());
@@ -258,31 +260,29 @@ public class Menu {
         System.out.println("\n*************************");
         System.out.println("* All Current Customers *");
         System.out.println("*************************");
-        List<User> customers = dao.getEmployees();
-        for (User customer: customers) {
-            System.out.println("\nId: "+customer.getUser_id()+" | Name: "+customer.getUser_firstname()+" "+customer.getUser_lastname()+" | Email: "+customer.getUser_username() );
-        }
+       udao.getCustomers();
+
     }
 
     public void customerAccountMenu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nPlease enter a Customer Id.");
-        int id = scanner.nextInt();
+        System.out.println("\nPlease enter a Customer Pin.");
+        int pin = scanner.nextInt();
         System.out.println("\n***********************");
         System.out.println("* Customer's Accounts *");
         System.out.println("***********************");
-        System.out.println("Please select an Account by AccountId to view ALl Transactions.");
-        List<Bank> customerAccounts = bdao.;
+        System.out.println("Please select an Account by AccountPin to view ALl Transactions.");
+        List<Bank> customerAccounts = bdao.allCustomersAccounts(pin);
         for (Bank accounts: customerAccounts) {
-            System.out.println("\nCustomerId: "+accounts.getPin()+" | AccountId: "+accounts.getAccountNumber()+" |" +
-                    " Account Balance: "+accounts.getCheckingBalance()+" | Account Type: "+accounts.getSavingBalance());
+            System.out.println("\nCustomerPin: "+accounts.getPin()+" | First Name:"+accounts.getFirstName()+" | Last Name: "+accounts.getLastName()+" | Password: "+accounts.getPassword()+" | AccountId: "+accounts.getAccountNumber()+" |" +
+                    " Checkings Account Balance: "+accounts.getCheckingBalance()+" | Savings Account Balance: "+accounts.getSavingBalance());
         }
-        id = scanner.nextInt();
+        pin = scanner.nextInt();
 
         System.out.println("\n****************************");
         System.out.println("* All Account Transactions *");
         System.out.println("****************************");
-        bdao.accountHistory(id);
+        bdao.accountHistory(pin);
     }
 
     public void addEmployeeMenu() throws SQLException {
@@ -301,6 +301,6 @@ public class Menu {
         dao.addEmployee(employee);
     }
 
-    public void UserloggedInMenu() {
     }
-}
+
+

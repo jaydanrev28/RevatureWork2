@@ -18,13 +18,13 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void registerUser(User acc) throws SQLException {
-        String sql = "insert into customer (id, first_name, last_name, username, password) values (?,?,?,?,?)";
+        String sql = "insert into customer (first_name, last_name, username, password) values (?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, acc.getUser_id());
-        preparedStatement.setString(2, acc.getUser_firstname());
-        preparedStatement.setString(3, acc.getUser_lastname());
-        preparedStatement.setString(4, acc.getUser_username());
-        preparedStatement.setString(5, acc.getUser_password());
+
+        preparedStatement.setString(1, acc.getUser_firstname());
+        preparedStatement.setString(2, acc.getUser_lastname());
+        preparedStatement.setString(3, acc.getUser_username());
+        preparedStatement.setString(4, acc.getUser_password());
         int count = preparedStatement.executeUpdate();
         if (count > 0)
             System.out.println("Customer saved");
@@ -34,7 +34,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean loginUser(String user_username, String user_password) throws SQLException {
-        String sql = "select * from customer set where username = ? and password =? ";
+        String sql = "select * from customer where username = ? and password = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, user_username);
         preparedStatement.setString(2, user_password);
@@ -49,7 +49,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User currentUser(String user_username, String user_password) throws SQLException {
         User acc = new User();
-        String sql = "Select * from customers where username = ? AND password = ?";
+        String sql = "Select * from customer where username = ? AND password = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, user_username);
         preparedStatement.setString(2, user_password);
@@ -64,5 +64,20 @@ public class UserDAOImpl implements UserDAO {
 
         }
         return acc;
+    }
+
+    @Override
+    public void getCustomers() throws SQLException {
+        String sql = "select * from customer";
+        statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String firstname = resultSet.getString(2);
+            String lastname = resultSet.getString(3);
+
+            System.out.println("Id = " + id + ", First Name = " + firstname + ", Last Name: " + lastname);
+        }
     }
 }
