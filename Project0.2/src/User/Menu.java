@@ -20,10 +20,12 @@ import Account.Account;
 import Account.AccountDAO;
 import Account.AccountDAOFactory;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+    int option1 =0;
     Transaction transactions =new Transaction();
     Bank account = new Bank();
     Applications application = new Applications();
@@ -45,6 +47,8 @@ public class Menu {
         System.out.println("2 - Customer Login");
         System.out.println("3 - Employee Login");
         System.out.println("4 - Exit");
+        Scanner scan = new Scanner(System.in);
+
     }
 
     public void userAccountMenu() throws SQLException {
@@ -283,12 +287,12 @@ public class Menu {
             System.out.println("\nCustomerPin: "+accounts.getPin()+" | First Name:"+accounts.getFirstName()+" | Last Name: "+accounts.getLastName()+" | Password: "+accounts.getPassword()+" | AccountId: "+accounts.getAccountNumber()+" |" +
                     " Checkings Account Balance: "+accounts.getCheckingBalance()+" | Savings Account Balance: "+accounts.getSavingBalance());
         }
-        pin= scanner.nextInt();
+        pin = scanner.nextInt();
 
         System.out.println("\n****************************");
         System.out.println("* All Account Transactions *");
         System.out.println("****************************");
-        bdao.receiveAccount(account);
+        bdao.accountHistory(pin);
     }
 
     public void addEmployeeMenu() throws SQLException {
@@ -306,67 +310,17 @@ public class Menu {
         employee.setEmail(scan.next());
         dao.addEmployee(employee);
     }
-    public void startTransaction(Transaction transaction) throws SQLException {
+    public void startTransaction(Bank account) throws SQLException {
         Transaction transactions = new Transaction();
         Scanner scan = new Scanner(System.in);
-        System.out.println("\nEnter Transaction id:");
-        transactions.setTransaction_id(scan.nextInt());
-        System.out.println("Enter Customer id");
-        transactions.setCust_id(scan.nextInt());
-       tdao.startTransaction(transaction);
-
-    }
-    public void depositCheckings(Bank account) throws SQLException {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("\n Enter pin please: ");
-        account.setPin(scan.nextInt());
-        System.out.println("Please enter password");
+        System.out.println("\nEnter Employee First Name");
+        account.setFirstName(scan.next());
+        System.out.println("Enter Employee Last Name");
+        account.setLastName(scan.next());
+        System.out.println("Enter Employee Password");
         account.setPassword(scan.next());
-        System.out.println("Amount to deposit");
-        account.setDeposit(scan.nextInt());
-        tdao.depositCheckings(account);
-    }
-    public void depositSavings(Bank account) throws SQLException {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("\n Enter pin please: ");
-        account.setPin(scan.nextInt());
-        System.out.println("Please enter password");
-        account.setPassword(scan.next());
-        System.out.println("Amount to deposit");
-        account.setDeposit(scan.nextInt());
-        tdao.depositSavings(account);
-    }
-    public void withdrawCheckings(Bank account) throws SQLException{
-        Scanner scan = new Scanner(System.in);
-        System.out.println("\n Enter pin please: ");
-        account.setPin(scan.nextInt());
-        System.out.println("Please enter password");
-        account.setPassword(scan.next());
-        System.out.println("Amount to withdraw:");
-        account.setWithdraw(scan.nextInt());
-        tdao.withdrawCheckings(account);
-    }
-    public void withdrawSavings(Bank account) throws SQLException {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("\n Enter pin please: ");
-        account.setPin(scan.nextInt());
-        System.out.println("Please enter password");
-        account.setPassword(scan.next());
-        System.out.println("Amount to withdraw:");
-        account.setWithdraw(scan.nextInt());
-        tdao.withdrawCheckings(account);
-    }
-    public void transactionMenu() throws SQLException{
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Create your account!!!!\n");
-        System.out.println("Enter your first name");
-        //ccount.(scan.next(""));
-        System.out.println("Enter your last name");
-        acc.setUser_lastname(scan.next());
-        System.out.println("Enter a username");
-        acc.setUser_username(scan.next());
-        System.out.println("Enter a password");
-        acc.setUser_password(scan.next());
+        System.out.println("Enter Account Number");
+        account.setAccountNumber(scan.nextInt());
     }
     }
 

@@ -1,20 +1,17 @@
-package Bank;
-
+package Maven;
 public class Bank {
     private String firstName;
     private String lastName;
     private String password;
     private int pin;
-private int accountNumber;
-private int checkingBalance;
-private int savingBalance;
-private int deposit;
-private int withdraw;
+    private int accountNumber;
+    private int checkingBalance;
+    private int savingBalance;
     public Bank(){
 
     }
 
-    public Bank(int pin, String firstName, String lastName, String password, int accountNumber,int checkingBalance,int savingBalance, int deposit, int withdraw) {
+    public Bank(int pin, String firstName, String lastName, String password, int accountNumber,int checkingBalance,int savingBalance) {
         this.pin = pin;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,12 +19,7 @@ private int withdraw;
         this.accountNumber= accountNumber;
         this.checkingBalance = checkingBalance;
         this.savingBalance = savingBalance;
-        this.deposit = deposit;
-        this.withdraw = withdraw;
 
-    }
-
-    public Bank(int anInt, String string, String string1, String string2, int anInt1, int anInt2, int anInt3) {
     }
 
     public String getFirstName() {
@@ -84,21 +76,5 @@ private int withdraw;
 
     public void setSavingBalance(int savingBalance) {
         this.savingBalance = savingBalance;
-    }
-
-    public int getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(int deposit) {
-        this.deposit = deposit;
-    }
-
-    public int getWithdraw() {
-        return withdraw;
-    }
-
-    public void setWithdraw(int withdraw) {
-        this.withdraw = withdraw;
     }
 }

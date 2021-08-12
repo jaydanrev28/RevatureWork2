@@ -18,15 +18,15 @@ public class TransactionDAOImpl implements TransactionDAO{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        //connection.setAutoCommit(false);
     }
     @Override
-    public void startTransaction(Transaction transaction) throws SQLException {
+    public void startTransaction(Bank account) throws SQLException {
         String sql = "start transaction";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, transaction.getCust_id());
-        preparedStatement.setInt(2, transaction.getTransaction_id());
-
+        preparedStatement.setString(1, account.getFirstName());
+        preparedStatement.setString(2, account.getLastName());
+        preparedStatement.setString(3, account.getPassword());
+        preparedStatement.setInt(4,account.getAccountNumber());
         int count = preparedStatement.executeUpdate();
         if (count > 0)
             System.out.println("Transaction begin");
@@ -36,14 +36,12 @@ public class TransactionDAOImpl implements TransactionDAO{
 
     @Override
     public void depositCheckings(Bank account) throws SQLException {
-
-        String sql2 = "update bank set checkings = checkings +? where pin = ?";
+        String sql = "update bank set checkings = checkings +? where pin = ?";
         // String sql2 = "rollback";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         // PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
         preparedStatement.setInt(1, account.getPin());
         preparedStatement.setString(2, account.getPassword());
-        preparedStatement.setInt(3,account.getDeposit());
         //  int count2 = preparedStatement2.executeUpdate();
         int count = preparedStatement.executeUpdate();
         if (count > 0)
@@ -70,28 +68,19 @@ public class TransactionDAOImpl implements TransactionDAO{
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, account.getPin());
         preparedStatement.setString(2, account.getPassword());
-        preparedStatement.setInt(3,account.getDeposit());
         int count = preparedStatement.executeUpdate();
         if (count > 0)
             System.out.println("Money Deposited");
         else
-            System.out.println("Rolling back data here....");
-        try{
-            if(connection!=null)
-                connection.rollback();
-        }catch(SQLException se2){
-            se2.printStackTrace();
-        }
             System.out.println("Oops! something went wrong");
     }
 
     @Override
-    public void withdrawCheckings(Bank account) throws SQLException {
+    public void withdrawCheckings(int pin) throws SQLException {
         String sql = "update bank set checkings = checkings -? where pin = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, account.getPin());
-        preparedStatement.setString(2, account.getPassword());
-        preparedStatement.setInt(3,account.getWithdraw());
+        preparedStatement.setInt(1, pin);
+
         int count = preparedStatement.executeUpdate();
         if (count > 0)
             System.out.println("Withdrawn from checking");
@@ -100,12 +89,10 @@ public class TransactionDAOImpl implements TransactionDAO{
     }
 
     @Override
-    public void withdrawSavings(Bank account) throws SQLException {
+    public void withdrawSavings(int pin) throws SQLException {
         String sql = "update bank set savings = savings -? where pin = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, account.getPin());
-        preparedStatement.setString(2, account.getPassword());
-        preparedStatement.setInt(3,account.getWithdraw());
+        preparedStatement.setInt(1, pin);
         int count = preparedStatement.executeUpdate();
         if (count > 0)
             System.out.println("Withdrawn from saving");
