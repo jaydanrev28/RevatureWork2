@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script>
+
+var request = new XMLHttpRequest();
+            
+            request.open('GET', 'https://jsonplaceholder.typicode.com/photos', true)
+
+            request.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                   // console.log(this.responseText)
+                   var response = this.responseText;
+                   var data = JSON.parse(response);
+                    var text = ''
+
+
+
+
+                    text += '<table class="table table-bordered"><tr><th>Title</th><th>Body</th></tr>'
+                    for(var i=0; i<data.length;i++){
+                        text+= '<tr><td>'+ data[i].title +'</td><td>'+ data[i].body +'</td></tr>'
+                    }
+                    text += '</table>'
+                    document.getElementById('result').innerHTML = text;
+
+                }
+            }
+
+            request.send();
+
+
+    </script>
+</body>
+</html>
