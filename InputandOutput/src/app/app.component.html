@@ -1,0 +1,6 @@
+<div class="main">
+  <h1>App Component(Parent)</h1>
+  {{ message }}
+
+  <app-test (childEvent)="message=$event" [childData]="parentData"></app-test>
+</div>
