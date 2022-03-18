@@ -1,0 +1,26 @@
+public class Fibonacci {
+
+	public static void main(String[] args ) {
+		fibonacciSeq();
+		
+	}	
+	
+	public static void fibonacciSeq() {
+	
+		  long t = 1;
+		  long r = 2;
+		  long fs = 2;
+		  long u =0 ;
+		  
+		  while (t <= 4000000 && r <= 4000000) {
+		  if(r % 2 == 0) {
+			  fs += r;
+		  }
+		  u = r;
+		  t =r ;
+		  r = t + u;
+	}
+		 System.out.println(fs);
+	
+}
+}
